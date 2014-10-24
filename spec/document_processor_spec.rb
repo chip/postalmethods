@@ -23,15 +23,15 @@ describe "Document Processing" do
     @client.document[:name].should == "sample.pdf"
     @client.document[:file_obj].class.should == File
   end
-  
+
   it "should return true on a valid document path" do
     @client.document = File.dirname(__FILE__) + '/../spec/doc/sample.pdf'
     @client.document?.should == true
   end
-  
+
   it "should throw an exception on a false path" do
     @doc = File.dirname(__FILE__) + '/../spec/doc/does_not_exist.pdf'
     lambda {@client.document = @doc}.should raise_error(Errno::ENOENT)
   end
-  
+
 end
