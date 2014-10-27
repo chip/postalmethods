@@ -1,5 +1,12 @@
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'postalmethods'
+require 'fakeweb'
+require 'vcr'
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+end
 
 $VERBOSE = nil ##silence annoying warnings from soap4r
 

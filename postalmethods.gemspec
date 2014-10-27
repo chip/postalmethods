@@ -17,20 +17,8 @@ Gem::Specification.new do |s|
   s.rubyforge_project = %q{postalmethods}
   s.rubygems_version = %q{1.2.0}
   s.summary = %q{API wrapper library for the postal methods api.}
-
-  if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    s.specification_version = 2
-
-    if current_version >= 3 then
-      s.add_development_dependency(%q<newgem>, [">= 1.2.1"])
-      s.add_development_dependency(%q<hoe>, [">= 1.8.0"])
-    else
-      s.add_dependency(%q<newgem>, [">= 1.2.1"])
-      s.add_dependency(%q<hoe>, [">= 1.8.0"])
-    end
-  else
-    s.add_dependency(%q<newgem>, [">= 1.2.1"])
-    s.add_dependency(%q<hoe>, [">= 1.8.0"])
-  end
+  s.add_development_dependency("pry", "~> 0.10.0")
+  s.add_development_dependency("pry-nav")
+  s.add_development_dependency("fakeweb")
+  s.add_development_dependency("vcr")
 end
