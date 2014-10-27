@@ -10,7 +10,11 @@ end
 
 $VERBOSE = nil ##silence annoying warnings from soap4r
 
-PM_OPTS = {:username => 'imajes', :password => 'rubyr00ls', :api_key => ENV['POSTAL_METHODS_API_KEY']}
+PM_OPTS = {
+  :username => ENV['POSTAL_METHODS_USERNAME'],
+  :password => ENV['POSTAL_METHODS_PASSWORD'],
+  :api_key  => ENV['POSTAL_METHODS_API_KEY']
+}
 
 # hash hacks to make hacking in specs easier
 class Hash
