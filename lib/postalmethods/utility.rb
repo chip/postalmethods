@@ -12,7 +12,7 @@ module PostalMethods
 
       status_code = rv.getLetterDetailsV2Result.resultCode.to_i
       letter_data = rv.getLetterDetailsV2Result
-        work_mode = rv.getLetterDetailsV2Result.workMode.to_s
+      work_mode = letter_data.workMode.to_s if letter_data.respond_to?(:workMode)
 
       if status_code == -3000 # successfully received the req
         return [letter_data, status_code, work_mode]
