@@ -1,7 +1,12 @@
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'postalmethods'
-require 'fakeweb'
+require 'rspec'
 require 'vcr'
+require 'fakeweb'
+
+RSpec.configure do |config|
+  config.order = 'random'
+end
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
