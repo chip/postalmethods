@@ -1,7 +1,9 @@
 module PostalMethods
   module DocumentProcessor
 
+    require "pry"
    def document=(doc)
+    binding.pry
      unless doc.class == File
        doc = File.open(doc, "rb")
      end

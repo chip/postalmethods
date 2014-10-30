@@ -1,7 +1,9 @@
+#encoding: utf-8
+
 require File.dirname(__FILE__) + '/spec_helper.rb'
 
 describe "PostalMethods" do
-  let(:pdf)    { open(File.dirname(__FILE__) + '/../spec/doc/sample.pdf') }
+  #let(:pdf)    { open(File.dirname(__FILE__) + '/../spec/doc/sample.pdf') }
   let(:txt)    { open(File.dirname(__FILE__) + '/../README.txt') }
   let(:client) { PostalMethods::Client.new(PM_OPTS) }
 
@@ -13,15 +15,9 @@ describe "PostalMethods" do
 
     context "with prepare" do
 
-      before do
-        VCR.use_cassette('send_letter/prepare') do
-          client.prepare!
-        end
-      end
-
       it "should instantiate and send a letter" do
         VCR.use_cassette('send_letter/send_letter') do
-          client.send_letter(pdf, "the long goodbye").should > 0
+          client.send_letter(txt, "the long goodbye").should > 0
         end
       end
 
