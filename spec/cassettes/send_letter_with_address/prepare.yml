@@ -6,14 +6,20 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ''
-    headers: {}
+    headers:
+      User-Agent:
+      - WSDL4R (2.5.2, ruby 1.9.3 (2012-04-20))
+      Accept:
+      - ! '*/*'
+      Date:
+      - Fri, 31 Oct 2014 01:28:26 GMT
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Tue, 28 Oct 2014 16:32:02 GMT
+      - Fri, 31 Oct 2014 01:28:26 GMT
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
@@ -1172,5 +1178,5 @@ http_interactions:
         \     <http:address location=\"https://api.postalmethods.com/PostalWS.asmx\"
         />\r\n    </wsdl:port>\r\n  </wsdl:service>\r\n</wsdl:definitions>"
     http_version: 
-  recorded_at: Tue, 28 Oct 2014 16:32:03 GMT
+  recorded_at: Fri, 31 Oct 2014 01:28:27 GMT
 recorded_with: VCR 2.9.3
