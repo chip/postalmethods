@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/spec_helper.rb'
 
 describe "PostalMethods" do
   let(:pdf)    { open(File.dirname(__FILE__) + '/../spec/doc/sample.pdf') }
-  let(:txt)    { open(File.dirname(__FILE__) + '/../README.txt') }
+  let(:txt)    { open(File.dirname(__FILE__) + '/../README.md') }
   let(:client) { PostalMethods::Client.new(PM_OPTS) }
 
   describe "Send Letter" do
