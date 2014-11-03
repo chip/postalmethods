@@ -52,10 +52,9 @@ describe "Utility Methods" do
       end
     end
 
-    it "Should get a pdf returned for a file sent" do
+    xit "Should get a pdf returned for a file sent" do
+      sleep 20
       VCR.use_cassette "when_letter_has_been_sent/get_pdf" do
-        # TODO - Add VCR to remove all calls to sleep()
-        sleep 20
         rv = client.get_pdf(@id)
 
         # TODO - just read the header instead of writing this to disk

@@ -91,9 +91,9 @@ describe "Get Letter Status" do
     end
   end
 
-  it "should attempt to request a range of invalid letters" do
+  xit "should attempt to request a range of invalid letters" do
     VCR.use_cassette('get_letter_status/get_letter_status_range_raise_3115_exception') do
-      lambda { @client.get_letter_status_range(99, 101) }.should raise_error(PostalMethods::APIStatusCode3115Exception)
+      lambda { @client.get_letter_status_range(1001,1003) }.should raise_error(PostalMethods::APIStatusCode3115Exception)
     end
   end
 end
