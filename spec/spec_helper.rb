@@ -2,7 +2,7 @@ $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'postalmethods'
 require 'rspec'
 require 'vcr'
-require 'fakeweb'
+require 'webmock'
 
 RSpec.configure do |config|
   config.order = 'random'
