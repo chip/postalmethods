@@ -43,7 +43,7 @@ module PostalMethods
         #self.api_uri = "https://api.postalmethods.com/2009-02-26/PostalWS.asmx"
         #self.api_uri = "https://api.postalmethods.com/2009-02-26/PostalWS.asmx?WSDL"
         # =>private $apiendpoint
-        #self.api_uri = "https://api.postalmethods.com/2009-02-26/PostalWS.asmx?WSDL"
+        self.api_uri = "https://api.postalmethods.com/2009-02-26/PostalWS.asmx?WSDL"
 
         self.username = opts[:username]
         self.password = opts[:password]
@@ -56,11 +56,8 @@ module PostalMethods
                                    convert_request_keys_to: :camelcase,
                                    env_namespace: :soap12,
                                    namespace_identifier: nil,
-                                   log: true,
-                                   log_level: :debug,
-                                   namespaces: {},
-                                   soap_version: 2
-                                  )
+                                   #namespaces: {},
+                                   soap_version: 2)
       end
 
       def prepare!

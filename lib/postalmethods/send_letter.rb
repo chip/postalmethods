@@ -1,7 +1,5 @@
 #encoding: utf-8
 
-require "base64"
-
 module PostalMethods
 
   module SendLetter
@@ -32,86 +30,46 @@ module PostalMethods
 
       self.document = doc
       require "pry"
-      #binding.pry
+      binding.pry
 
-      #puts client.operations
+      puts client.operations
 
-      #ops = client.operation(:send_letter)
+      ops = client.operation(:send_letter)
       #ops = client.operation(:send_letter_v2)
 
-      #request_xml = <<-END_XML
-      #<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        #<soap12:Body>
-          #<SendLetter xmlns="PostalMethods">
-            #<Username>#{self.username}</Username>
-            #<Password>#{self.password}</Password>
-            #<MyDescription>#{description}</MyDescription>
-            #<FileExtension>#{self.document[:extension]}</FileExtension>
-            #<FileBinaryData>#{self.document[:bytes]}</FileBinaryData>
-            #<WorkMode>Development</WorkMode>
-          #</SendLetter>
-        #</soap12:Body>
-      #</soap12:Envelope>
-      #END_XML
+      xml = ops.build(
+        message: {
+          Username: self.username,
+          Password: self.password,
+          #api_key: ENV['POSTAL_METHODS_API_KEY'],
+          FileExtension: self.document[:extension],
+          FileBinaryData: self.document[:bytes],
+          MyDescription: description,
+          WorkMode: self.work_mode
+        }
+      ).pretty
+      puts xml
 
-            #<ApiKey>#{self.api_key}</ApiKey>
-
-      #request_xml = <<-END_XML
-      #<?xml version="1.0" encoding="utf-8"?>
-      #<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-        #<soap:Body>
-          #<SendLetter xmlns="PostalMethods">
-            #<Username>#{self.username}</Username>
-            #<Password>#{self.password}</Password>
-            #<MyDescription>#{description}</MyDescription>
-            #<FileExtension>#{self.document[:extension]}</FileExtension>
-            #<FileBinaryData>#{self.document[:bytes]}</FileBinaryData>
-            #<WorkMode>Development</WorkMode>
-          #</SendLetter>
-        #</soap:Body>
-      #</soap:Envelope>
-      #END_XML
-
-      #xml = ops.build(xml: request_xml)
-      #xml = ops.build(
+      rv = ops.call
+      puts rv
+      #rv = client.call(:send_letter_v2,
         #message: {
           #Username: self.username,
           #Password: self.password,
-          ##api_key: ENV['POSTAL_METHODS_API_KEY'],
+          #api_key: ENV['POSTAL_METHODS_API_KEY'],
           #FileExtension: self.document[:extension],
           #FileBinaryData: self.document[:bytes],
           #MyDescription: description,
           #WorkMode: self.work_mode
         #}
       #)
-      #puts "*********"
-      #puts xml.pretty
-      #puts "*********"
-
-      #rv = ops.call
-      #rv = client.call(:send_letter, xml: request_xml)
-      #rv = client.call(:send_letter_v2, xml: request_xml)
-
-      #rv = client.call(:send_letter_v2,
-      rv = client.call(:send_letter,
-        message: {
-          Username: self.username,
-          Password: self.password,
-          #api_key: ENV['POSTAL_METHODS_API_KEY'],
-          FileExtension: self.document[:extension],
-          FileBinaryData: Base64.encode64(self.document[:bytes]),
-          MyDescription: description,
-          WorkMode: self.work_mode
-        }
-      )
-      puts rv
-      #binding.pry
+      binding.pry
 
       #status_code = rv.sendLetterV2Result.to_i
-      status_code = rv.hash[:envelope][:body][:send_letter_v2_response][:send_letter_v2_result].to_i
-      #status_code = rv.hash[:envelope][:body][:send_letter_response][:send_letter_result].to_i
+      #status_code = rv.hash[:envelope][:body][:send_letter_v2_response][:send_letter_v2_result].to_i
+      status_code = rv.hash[:envelope][:body][:send_letter_response][:send_letter_result].to_i
 
-      #binding.pry
+      binding.pry
       if status_code > 0
         return status_code
       elsif API_STATUS_CODES.has_key?(status_code)
@@ -120,7 +78,7 @@ module PostalMethods
     end
 
     def send_letter_with_address(doc, description, address)
-      #raise PostalMethods::NoPreparationException unless self.prepared
+      raise PostalMethods::NoPreparationException unless self.prepared
       raise PostalMethods::AddressNotHashException unless (address.class == Hash)
 
       ## setup the document

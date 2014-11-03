@@ -3,7 +3,7 @@ module PostalMethods
 
     require "pry"
    def document=(doc)
-    #binding.pry
+    binding.pry
      unless doc.class == File
        doc = File.open(doc, "rb")
      end
