@@ -41,5 +41,6 @@ DEPENDENCIES
   postalmethods!
   pry (~> 0.10.0)
   pry-nav
+  rake
   rspec
   vcr
