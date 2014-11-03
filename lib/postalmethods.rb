@@ -7,6 +7,7 @@ module PostalMethods
   class Client
 
       #require 'soap/rpc/driver'
+      require 'rubygems'
       require 'soap/wsdlDriver'
 
       VERBOSE=nil # soap4r is a noisy bugger
