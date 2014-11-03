@@ -38,10 +38,12 @@ describe "Get Letter Status" do
   it "should send multiple letters and get their status" do
     letters = []
     1.upto(3) do |i|
-      VCR.use_cassette("get_letter_status/send_letter/#{i}") do
+      VCR.use_cassette("get_letter_status/#{i}/prepare") do
         @doc = open(File.dirname(__FILE__) + '/../spec/doc/sample.pdf')
         @client = PostalMethods::Client.new(PM_OPTS)
         @client.prepare!
+      end
+      VCR.use_cassette("get_letter_status/#{i}/send_letter") do
         rv = @client.send_letter(@doc, "the long goodbye")
         rv.should > 0
         letters << rv
@@ -69,10 +71,12 @@ describe "Get Letter Status" do
   it "should request a range of letters and get their status" do
     letters = []
     1.upto(3) do |i|
-      VCR.use_cassette("get_letter_status/send_letter/#{i}") do
+      VCR.use_cassette("get_letter_status/get_letter_status_range/#{i}/prepare") do
         @doc = open(File.dirname(__FILE__) + '/../spec/doc/sample.pdf')
         @client = PostalMethods::Client.new(PM_OPTS)
         @client.prepare!
+      end
+      VCR.use_cassette("get_letter_status/get_letter_status_range/#{i}/send_letter") do
         rv = @client.send_letter(@doc, "the long goodbye")
         rv.should > 0
         letters << rv
