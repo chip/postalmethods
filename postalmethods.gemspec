@@ -17,12 +17,9 @@ Gem::Specification.new do |s|
   s.rubyforge_project = %q{postalmethods}
   s.rubygems_version = %q{1.2.0}
   s.summary = %q{API wrapper library for the postal methods api.}
-  s.add_dependency("utf8-cleaner")
-  s.add_dependency("rubyntlm", "0.4.0")
-  s.add_dependency('savon', '~> 2.0')
   s.add_development_dependency("pry", "~> 0.10.0")
   s.add_development_dependency("pry-nav")
   s.add_development_dependency("rspec")
-  s.add_development_dependency("webmock")
+  s.add_development_dependency("fakeweb")
   s.add_development_dependency("vcr")
 end

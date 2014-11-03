@@ -1,8 +1,8 @@
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'postalmethods'
 require 'rspec'
-require 'webmock'
 require 'vcr'
+require 'fakeweb'
 
 RSpec.configure do |config|
   config.order = 'random'
@@ -11,7 +11,6 @@ end
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
-  c.default_cassette_options = { :record => :new_episodes }
 end
 
 $VERBOSE = nil ##silence annoying warnings from soap4r

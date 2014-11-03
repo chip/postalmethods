@@ -1,9 +1,6 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
-require 'utf8-cleaner'
-# UTF8Cleaner::Middleware
-
 module PostalMethods
   VERSION = '1.1.1'
 
@@ -12,7 +9,6 @@ module PostalMethods
       require 'rubygems'
       require 'soap/rpc/driver'
       require 'soap/wsdlDriver'
-      require 'savon'
 
       VERBOSE=nil # soap4r is a noisy bugger
 
@@ -28,7 +24,7 @@ module PostalMethods
       include GetLetterStatus
       include UtilityMethods
 
-      attr_accessor :api_uri, :username, :password, :api_key, :to_send, :rpc_driver, :prepared, :work_mode, :valid_work_modes, :client
+      attr_accessor :api_uri, :username, :password, :api_key, :to_send, :rpc_driver, :prepared, :work_mode, :valid_work_modes
 
       def initialize(opts = {})
         if opts[:username].nil? || opts[:password].nil? || opts[:api_key].nil?
@@ -39,25 +35,12 @@ module PostalMethods
 
         ## declare here so we can override in tests, etc.
         self.api_uri = "https://api.postalmethods.com/PostalWS.asmx?WSDL"
-        #self.api_uri = "http://api.postalmethods.com/2009-02-26/PostalWS.asmx"
-        #self.api_uri = "https://api.postalmethods.com/2009-02-26/PostalWS.asmx"
-        #self.api_uri = "https://api.postalmethods.com/2009-02-26/PostalWS.asmx?WSDL"
-        # =>private $apiendpoint
-        self.api_uri = "https://api.postalmethods.com/2009-02-26/PostalWS.asmx?WSDL"
 
         self.username = opts[:username]
         self.password = opts[:password]
         self.api_key  = opts[:api_key]
 
-        self.work_mode = self.valid_work_modes[:development] #(opts[:work_mode].nil? ? "default" : opts[:work_mode])
-
-        self.client = Savon.client(wsdl: self.api_uri,
-                                   pretty_print_xml: true,
-                                   convert_request_keys_to: :camelcase,
-                                   env_namespace: :soap12,
-                                   namespace_identifier: nil,
-                                   #namespaces: {},
-                                   soap_version: 2)
+        self.work_mode = (opts[:work_mode].nil? ? "default" : opts[:work_mode])
       end
 
       def prepare!
